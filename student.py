@@ -16,14 +16,17 @@ class Student:
 
         for exercise in self.currectExercises:
 
-            if i == end_index and i > 0:
+            if i == end_index and i > 0 and i != 1:
+                statement += f", and {exercise.name}"
+            
+            elif i == end_index and i > 0 and i == 1:
                 statement += f" and {exercise.name}"
 
             else:
                 if i == 0:
                     statement += exercise.name
                 if i > 0:
-                    statement += f", {exercise.name},"
+                    statement += f", {exercise.name}"
             i += 1
 
         print(f"{self.firstName} is working on {statement}.")
