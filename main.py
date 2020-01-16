@@ -35,12 +35,16 @@ instruct_RoseW = Instructor("Rose", "Wzuoutki", "roseW", "Cohort 38", "Billiards
 #Assigning exercises
 instructor_joeShep.assign_exercise(student_treySuiter, ex_chickenMonkey)
 instructor_joeShep.assign_exercise(student_treySuiter, ex_myJournal)
+instructor_joeShep.assign_exercise(student_treySuiter, ex_reactiveNutshell)
 instructor_jisieDavid.assign_exercise(student_jimJam, ex_myJournal)
 instructor_jisieDavid.assign_exercise(student_jimJam, ex_celebrityTribute)
 instructor_kristenNorris.assign_exercise(student_fredFlip, ex_celebrityTribute)
 instructor_kristenNorris.assign_exercise(student_fredFlip, ex_reactiveNutshell)
 instruct_RoseW.assign_exercise(student_jilJones, ex_reactiveNutshell)
-instruct_RoseW.assign_exercise(student_jilJones, ex_chickenMonkey)
+
+for student in allStudentsArray:
+
+    student.print_exercises()
 
 
 
