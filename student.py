@@ -27,10 +27,3 @@ class Student:
             i += 1
 
         print(f"{self.firstName} is working on {statement}.")
-
-        # for exercise in self.currectExercises:
-
-        #     print(f"{self.firstName} {exercise.name}")
-
-        # print(stringOfCurrentExercises)
-        # print(f"{self.firstName} is working on")
