@@ -50,10 +50,3 @@ instruct_RoseW.assign_exercise(student_jilJones, ex_reactiveNutshell)
 for student in allStudentsArray:
 
     student.print_exercises()
-
-
-
-
-
-
-
