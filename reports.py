@@ -29,7 +29,17 @@ class Exercise():
     def __repr__(self):
         return f"{self.name} in the {self.exLanguage} language."
 
+class Instructor():
 
+    def __init__(self, first, last, handle, cohort, specialty):
+        self.first_name = first
+        self.last_name = last
+        self.slack_handle = handle
+        self.cohort = cohort
+        self.specialty = specialty
+
+    def __repr__(self):
+        return f"{self.first_name} {self.last_name} is teaching {self.cohort}."
 
 class StudentExerciseReports():
 
@@ -37,6 +47,37 @@ class StudentExerciseReports():
 
     def __init__(self):
         self.db_path = "/Users/Trey/workspace/python/StudentExercises/studentexercises.db"
+
+    def all_instructors(self):
+        """Retrieve all instructors with the cohort name"""
+
+        with sqlite3.connect(self.db_path) as conn:
+
+            conn.row_factory = lambda cursor, row: Instructor(
+                row[1], row[2], row[3], row[6], row[5]
+            )
+
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select i.Id,
+                i.FirstName,
+                i.LastName,
+                i.SlackHandle,
+                i.CohortId,
+                i.Speciality,
+                c.Name
+            from Cohort c
+            join Instructor i on c.Id = i.CohortId
+            """)
+
+            all_instructors = db_cursor.fetchall()
+
+            # for student in all_students:
+            #     print(student)
+
+            [print(i) for i in all_instructors]
+
 
     def all_students(self):
         """Retrieve all students with the cohort name"""
@@ -158,5 +199,6 @@ reports = StudentExerciseReports()
 # reports.all_cohorts()
 # reports.all_exercises()
 # reports.all_JS_exercises()
-reports.all_py_exercises()
+# reports.all_py_exercises()
+reports.all_instructors()
 
