@@ -12,7 +12,6 @@ class Student():
     def __repr__(self):
         return f'{self.first_name} {self.last_name} is in {self.cohort}'
 
-
 class Cohort():
 
     def __init__(self, name):
@@ -20,6 +19,16 @@ class Cohort():
 
     def __repr__(self):
         return self.name
+
+class Exercise():
+
+    def __init__(self, name, exLanguage):
+        self.name = name
+        self.exLanguage = exLanguage
+
+    def __repr__(self):
+        return f"{self.name} in the {self.exLanguage} language."
+
 
 
 class StudentExerciseReports():
@@ -82,7 +91,72 @@ class StudentExerciseReports():
 
             [print(c) for c in all_cohorts]
 
+    def all_exercises(self):
+        """Retrieve all exercises"""
+
+        with sqlite3.connect(self.db_path) as conn:
+
+            conn.row_factory = lambda cursor, row: Exercise(
+                row[1], row[2]
+            )
+
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select * from Exercise
+            order by Id
+            """)
+
+            all_exercises = db_cursor.fetchall()
+
+            [print(e) for e in all_exercises]
+
+    def all_JS_exercises(self):
+        """Retrieve all exercises"""
+
+        with sqlite3.connect(self.db_path) as conn:
+
+            conn.row_factory = lambda cursor, row: Exercise(
+                row[1], row[2]
+            )
+
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select * from Exercise
+            where ExLanguage = 'JavaScript'
+            order by Id
+            """)
+
+            all_exercises = db_cursor.fetchall()
+
+            [print(e) for e in all_exercises]
+
+    def all_py_exercises(self):
+        """Retrieve all exercises"""
+
+        with sqlite3.connect(self.db_path) as conn:
+
+            conn.row_factory = lambda cursor, row: Exercise(
+                row[1], row[2]
+            )
+
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select * from Exercise
+            where ExLanguage = 'Python'
+            order by Id
+            """)
+
+            all_exercises = db_cursor.fetchall()
+
+            [print(e) for e in all_exercises]
 
 reports = StudentExerciseReports()
 # reports.all_students()
-reports.all_cohorts()
+# reports.all_cohorts()
+# reports.all_exercises()
+# reports.all_JS_exercises()
+reports.all_py_exercises()
+
