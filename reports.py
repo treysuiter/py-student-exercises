@@ -13,6 +13,15 @@ class Student():
         return f'{self.first_name} {self.last_name} is in {self.cohort}'
 
 
+class Cohort():
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return self.name
+
+
 class StudentExerciseReports():
 
     """Methods for reports on the Student Exercises database"""
@@ -47,8 +56,33 @@ class StudentExerciseReports():
 
             # for student in all_students:
             #     print(student)
+
             [print(s) for s in all_students]
+
+    def all_cohorts(self):
+        """Retrieve all cohorts"""
+
+        with sqlite3.connect(self.db_path) as conn:
+
+            conn.row_factory = lambda cursor, row: Cohort(
+                row[1]
+            )
+
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select * from Cohort
+            order by Id
+            """)
+
+            all_cohorts = db_cursor.fetchall()
+
+            # for student in all_students:
+            #     print(student)
+
+            [print(c) for c in all_cohorts]
 
 
 reports = StudentExerciseReports()
-reports.all_students()
+# reports.all_students()
+reports.all_cohorts()
